@@ -1,55 +1,52 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report:
+- Version change: N/A → 1.0.0
+- Modified principles: N/A (new constitution)
+- Added sections: All sections
+- Removed sections: N/A
+- Templates requiring updates: N/A
+- Follow-up TODOs: None
+-->
+# Phase I Todo Console App Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Clean Code
+All code must be clean, readable, and maintainable. Code should be self-documenting with clear variable names and logical structure. The application MUST follow clean code principles to ensure long-term maintainability and ease of understanding.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Type Hints Mandatory
+Every function, method, and variable declaration MUST include appropriate type hints. This ensures code clarity, enables better IDE support, and prevents type-related errors during development. The application MUST NOT be deployed without comprehensive type hint coverage.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. User-Friendly Errors
+All error messages MUST be clear, informative, and actionable for end users. Error handling SHOULD provide context about what went wrong and suggest possible solutions. The application MUST NOT display technical stack traces or cryptic error messages to users.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Test-First Development
+All features and bug fixes MUST have corresponding tests written before implementation. The TDD approach of writing tests first, seeing them fail, then implementing functionality to make them pass MUST be followed. All code MUST have adequate test coverage before being merged.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. PEP 8 Compliance
+All code MUST comply with PEP 8 style guidelines. This includes proper indentation, naming conventions, and line length limitations. Code formatting SHOULD be verified with automated tools during the development process.
 
-### [PRINCIPLE_6_NAME]
+### VI. Spec-Driven Development
+All development MUST follow the established specifications. Features SHOULD be implemented according to the documented requirements, and any deviations MUST be approved through the proper channels. Implementation MUST NOT proceed without clear specification.
 
+## Technology Stack
 
-[PRINCIPLE__DESCRIPTION]
+The application MUST use Python 3.13+ as the primary programming language. The application MUST rely only on the Python standard library with no external packages. This constraint ensures minimal dependencies and maximum portability. The application MUST NOT introduce any third-party libraries or frameworks.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Code Standards
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+All functions and methods MUST include comprehensive docstrings following the Google or NumPy docstring conventions. The application MUST enforce a maximum line length of 88 characters to ensure readability across different environments. Code reviews MUST verify compliance with these standards before merging.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Constraints
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+The application MUST use in-memory storage only, with no persistent data storage mechanisms. The application MUST provide a console interface only, with no GUI or web interface components. The application MUST follow spec-driven development methodology, with all features implemented according to predefined specifications.
+
+## Error Handling
+
+All user inputs MUST be validated before processing. The application MUST provide friendly, human-readable error messages instead of technical exceptions. The application MUST NOT crash under any circumstances, but instead handle errors gracefully and return to a stable state.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes all other development practices for this project. All amendments to this constitution MUST be documented and approved by the project maintainers. All pull requests and code reviews MUST verify compliance with these principles. The development team SHOULD refer to this constitution when making architectural or implementation decisions.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2025-01-01 | **Last Amended**: 2025-12-28
