@@ -16,7 +16,7 @@ export default function SignupPage() {
   const handleSignup = async (formData: { email: string; password: string; name?: string }) => {
     setLoading(true);
     setError('');
-    
+
     try {
       // In a real application, you would call your backend API here
       // For now, we'll just simulate the API call
@@ -35,6 +35,10 @@ export default function SignupPage() {
       const data = await response.json();
 
       if (response.ok) {
+        // Add a small delay before redirect to ensure proper state management
+        // This can help with potential header size issues
+        await new Promise(resolve => setTimeout(resolve, 100));
+
         // Redirect to login page after successful signup
         router.push('/login');
       } else {

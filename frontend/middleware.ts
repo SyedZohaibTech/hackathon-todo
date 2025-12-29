@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export function middleware(request: NextRequest) {
+  // Get the auth token from cookies
   const authToken = request.cookies.get('better-auth.session_token');
   const isAuthenticated = !!authToken;
 
@@ -41,6 +42,7 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+    // Updated to exclude more static resources that don't need auth checks
+    '/((?!api|_next/static|_next/image|favicon.ico|assets|images|fonts|svg|png|jpg|jpeg|gif|webp|css|js).*)',
   ],
 };

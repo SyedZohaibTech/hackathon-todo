@@ -26,11 +26,20 @@ export default function DashboardPage() {
 
   // Check authentication on page load
   useEffect(() => {
-    if (!isAuthenticated()) {
-      router.push('/login');
-    } else {
-      fetchTasks();
-    }
+    // Add a small delay to allow the page to render before redirecting
+    // This can help with potential header size issues during initial load
+    const checkAuth = async () => {
+      // Wait for a brief moment to allow cookies to be properly set
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      if (!isAuthenticated()) {
+        router.push('/login');
+      } else {
+        fetchTasks();
+      }
+    };
+
+    checkAuth();
   }, []);
 
   const fetchTasks = async () => {
@@ -40,10 +49,17 @@ export default function DashboardPage() {
       // For now, we'll simulate the API call
       const token = localStorage.getItem('token');
       
+      // Only include the token if it exists to minimize header size
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+      };
+
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
       const response = await fetch('/api/tasks', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
+        headers,
       });
 
       if (response.ok) {
@@ -71,12 +87,18 @@ export default function DashboardPage() {
       setLoading(true);
       const token = localStorage.getItem('token');
       
+      // Only include the token if it exists to minimize header size
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+      };
+
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
       const response = await fetch('/api/tasks', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
+        headers,
         body: JSON.stringify(taskData),
       });
 
@@ -110,13 +132,19 @@ export default function DashboardPage() {
       const taskToToggle = tasks.find(task => task.id === id);
       if (!taskToToggle) return;
       
+      // Only include the token if it exists to minimize header size
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+      };
+
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
       // Update the task's completion status
       const response = await fetch(`/api/tasks/${id}`, {
         method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
+        headers,
         body: JSON.stringify({
           completed: !taskToToggle.completed
         }),
@@ -159,11 +187,16 @@ export default function DashboardPage() {
       setLoading(true);
       const token = localStorage.getItem('token');
       
+      // Only include the token if it exists to minimize header size
+      const headers: Record<string, string> = {};
+
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
       const response = await fetch(`/api/tasks/${id}`, {
         method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
+        headers,
       });
 
       if (response.ok) {

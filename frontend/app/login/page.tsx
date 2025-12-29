@@ -16,7 +16,7 @@ export default function LoginPage() {
   const handleLogin = async (formData: { email: string; password: string }) => {
     setLoading(true);
     setError('');
-    
+
     try {
       // In a real application, you would call your backend API here
       // For now, we'll just simulate the API call
@@ -36,7 +36,11 @@ export default function LoginPage() {
       if (response.ok) {
         // Store the JWT token in localStorage (or use a more secure method in production)
         localStorage.setItem('token', data.data.token);
-        
+
+        // Add a small delay before redirect to ensure the token is properly stored
+        // This can help with potential header size issues
+        await new Promise(resolve => setTimeout(resolve, 100));
+
         // Redirect to dashboard after successful login
         router.push('/');
       } else {
