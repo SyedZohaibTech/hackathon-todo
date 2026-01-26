@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m pytest tests/unit/ -v)",
+      "Bash(PYTHONPATH=. python -c \"import sys; sys.path.insert\\(0, ''.''\\); from src.models.task import TaskCreate; print\\(''Task model imported successfully''\\)\")",
+      "Bash(dir frontend)",
+      "Bash(dir frontendapp)",
+      "Bash(dir frontend.env*)",
+      "Bash(findstr env)",
+      "Bash(dir backend)",
+      "Bash(find backend -name \"*.py\" -exec grep -l \"8000\\\\|8001\\\\|port\" {} ;)",
+      "Bash(python -c \"import fastapi, sqlmodel, uvicorn; print\\(''Required packages are available''\\)\")",
+      "Bash(python -m uvicorn src.main:app --host 0.0.0.0 --port 8000)",
+      "Bash(python -c \"from src.main import app; import uvicorn; uvicorn.run\\(app, host=''0.0.0.0'', port=8000\\)\" --reload)",
+      "Bash(findstr :8000)",
+      "Bash(curl -X GET http://localhost:8000/health)",
+      "Bash(curl -X GET http://localhost:8000/docs)",
+      "Bash(python -c \"from src.main import app; import uvicorn; uvicorn.run\\(app, host=''0.0.0.0'', port=8000\\)\")",
+      "Bash(netstat -ano)"
+    ]
+  }
+}
