@@ -1,5 +1,5 @@
 class AuthService {
-  private API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://sz453781it-hackathon-todo.hf.space';
+  private API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
   async login(username: string, password: string): Promise<boolean> {
     try {

@@ -37,7 +37,8 @@
       "Bash(python -m py_compile:*)",
       "Bash(python test_chat_fix.py:*)",
       "Bash(python test_chat_fix_validation.py:*)",
-      "Bash(del test_chat_fix.py test_chat_fix_validation.py)"
+      "Bash(del test_chat_fix.py test_chat_fix_validation.py)",
+      "Bash(dir:*)"
     ]
   }
 }

@@ -1,6 +1,6 @@
 import { Task } from '../types/task';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://sz453781it-hackathon-todo.hf.space';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 class TaskService {
   private getAuthHeaders(): HeadersInit {
