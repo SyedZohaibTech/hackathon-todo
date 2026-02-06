@@ -1,0 +1,6 @@
+runtime:
+  huggingface: 3.0
+  cuda: null
+  language: en
+
+sdk: docker

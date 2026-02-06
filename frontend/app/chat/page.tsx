@@ -35,25 +35,48 @@ const ChatPage = () => {
     setIsLoading(true);
 
     try {
-      // In a real implementation, this would call the AI agent API
-      // For now, we'll simulate a response
-      setTimeout(() => {
-        const aiMessage = {
-          id: messages.length + 2,
-          text: `I've processed your request: "${inputText}". In a real implementation, I would connect to the AI agent to create, update, or manage your tasks based on your natural language input.`,
-          sender: 'ai' as const
-        };
+      // Get the auth token
+      const token = localStorage.getItem('access_token');
 
-        setMessages(prev => [...prev, aiMessage]);
-        setIsLoading(false);
-      }, 1000);
+      if (!token) {
+        throw new Error('Not authenticated. Please log in first.');
+      }
+
+      // Call the backend AI agent API (using full URL to backend)
+      const BACKEND_API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+      const response = await fetch(`${BACKEND_API_URL}/api/v1/chat/process_real`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          message: inputText
+        })
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`API request failed with status ${response.status}: ${errorText}`);
+      }
+
+      const data = await response.json();
+
+      const aiMessage = {
+        id: messages.length + 2,
+        text: data.response,
+        sender: 'ai' as const
+      };
+
+      setMessages(prev => [...prev, aiMessage]);
+      setIsLoading(false);
     } catch (error) {
       console.error('Error sending message:', error);
       setIsLoading(false);
 
       const errorMessage = {
         id: messages.length + 2,
-        text: 'Sorry, I encountered an error processing your request. Please try again.',
+        text: error instanceof Error ? error.message : 'Sorry, I encountered an error processing your request. Please try again.',
         sender: 'ai' as const
       };
 

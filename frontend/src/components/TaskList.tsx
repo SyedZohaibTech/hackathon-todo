@@ -46,9 +46,9 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, onTaskToggle, onTaskDelete }
                 {task.description && (
                   <div className="task-description">{task.description}</div>
                 )}
-                {task.created_at && (
+                {task.createdAt && (
                   <div className="text-xs text-muted mt-1">
-                    Created: {new Date(task.created_at).toLocaleDateString()}
+                    Created: {new Date(task.createdAt).toLocaleDateString()}
                   </div>
                 )}
               </div>

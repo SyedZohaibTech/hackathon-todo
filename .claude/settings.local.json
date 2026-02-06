@@ -16,7 +16,28 @@
       "Bash(curl -X GET http://localhost:8000/health)",
       "Bash(curl -X GET http://localhost:8000/docs)",
       "Bash(python -c \"from src.main import app; import uvicorn; uvicorn.run\\(app, host=''0.0.0.0'', port=8000\\)\")",
-      "Bash(netstat -ano)"
+      "Bash(netstat -ano)",
+      "Bash(dir C:UsersPcwDesktopHackathon-todofrontendservices)",
+      "Bash(chmod +x backend/deploy_hf.sh)",
+      "Bash(dir frontend /s)",
+      "Bash(findstr agents)",
+      "Bash(dir \"C:\\\\Users\\\\Pcw\\\\Desktop\\\\Hackathon-todo\")",
+      "Bash(dir \"C:\\\\Users\\\\Pcw\\\\Desktop\\\\Hackathon-todo\\\\agent\")",
+      "Bash(dir \"C:\\\\Users\\\\Pcw\\\\Desktop\\\\Hackathon-todo\\\\agent\\\\src\" /s)",
+      "Bash(dir \"C:\\\\Users\\\\Pcw\\\\Desktop\\\\Hackathon-todo\\\\frontend\\\\app\" /s)",
+      "Bash(dir \"C:\\\\Users\\\\Pcw\\\\Desktop\\\\Hackathon-todo\\\\frontend\\\\app\\\\auth\" /s)",
+      "Bash(dir \"C:\\\\Users\\\\Pcw\\\\Desktop\\\\Hackathon-todo\\\\frontend\\\\app\\\\auth\\\\login\" /s)",
+      "Bash(python -m pytest tests/ -v)",
+      "Bash(python -c \"\nfrom src.main import app\nprint\\(''Backend app loaded successfully''\\)\n\n# Test basic functionality\nfrom src.database.database import create_db_and_tables\ncreate_db_and_tables\\(\\)\nprint\\(''Database tables created successfully''\\)\n\n# Test that the routes exist\nroutes = [route.path for route in app.routes]\nprint\\(f''Found {len\\(routes\\)} routes''\\)\nauth_routes = [route for route in app.routes if ''auth'' in route.path.lower\\(\\)]\nprint\\(f''Found {len\\(auth_routes\\)} auth-related routes''\\)\nprint\\(''Routes:'', [route.path for route in app.routes][:10], ''...''\\)\n\")",
+      "Bash(python -c \"\n# Test the auth service directly\nfrom src.services.auth_service import AuthService\nfrom src.database.database import get_session\nfrom src.models.user import UserCreate\nfrom sqlmodel import Session\n\n# Test that we can import and create an auth service\nprint\\(''AuthService can be imported successfully''\\)\n\n# Test creating a session and auth service\nwith next\\(get_session\\(\\)\\) as session:\n    auth_service = AuthService\\(session\\)\n    print\\(''AuthService instantiated successfully with session''\\)\n    \n# Test that we can access the auth routes\nfrom src.api.v1.auth import router\nprint\\(f''Auth router has {len\\(router.routes\\)} routes''\\)\nfor route in router.routes:\n    if hasattr\\(route, ''methods''\\) and hasattr\\(route, ''path''\\):\n        print\\(f''  {list\\(route.methods\\)} {route.path}''\\)\n\")",
+      "Bash(curl -s -o nul -w \"%{http_code}\" \"http://127.0.0.1:8000/api/v1/auth/login\" -X OPTIONS)",
+      "Bash(timeout 10s python -m uvicorn src.main:app --host 127.0.0.1 --port 8000)",
+      "Bash(python -m pytest:*)",
+      "Bash(python -c:*)",
+      "Bash(python -m py_compile:*)",
+      "Bash(python test_chat_fix.py:*)",
+      "Bash(python test_chat_fix_validation.py:*)",
+      "Bash(del test_chat_fix.py test_chat_fix_validation.py)"
     ]
   }
 }

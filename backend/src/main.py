@@ -1,6 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .database.database import create_db_and_tables
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Create the FastAPI app
 app = FastAPI(title="Todo API", version="1.0.0")
@@ -22,10 +27,11 @@ def on_startup():
 
 
 # Include API routers
-from .api.v1 import tasks, auth, users
+from .api.v1 import tasks, auth, users, chat
 app.include_router(tasks.router, prefix="/api/v1")
 app.include_router(auth.router, prefix="/api/v1")
 app.include_router(users.router, prefix="/api/v1")
+app.include_router(chat.router, prefix="/api/v1")
 
 
 @app.get("/")
@@ -71,6 +77,7 @@ def console_app():
 if __name__ == "__main__":
     import uvicorn
     import sys
+    import os
 
     if len(sys.argv) > 1 and sys.argv[1] == "console":
         console_app()
@@ -78,4 +85,6 @@ if __name__ == "__main__":
         print("Documentation would be generated here")
     else:
         # Run the web server by default
-        uvicorn.run(app, host="0.0.0.0", port=8000)
+        # Use PORT from environment (for Railway/Docker) or default to 8000
+        port = int(os.environ.get("PORT", 8000))
+        uvicorn.run(app, host="0.0.0.0", port=port)
