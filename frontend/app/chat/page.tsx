@@ -43,7 +43,7 @@ const ChatPage = () => {
       }
 
       // Call the backend AI agent API (using full URL to backend)
-      const BACKEND_API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+      const BACKEND_API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://sz453781it-hackathon-todo.hf.space';
       const response = await fetch(`${BACKEND_API_URL}/api/v1/chat/process_real`, {
         method: 'POST',
         headers: {

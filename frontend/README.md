@@ -51,8 +51,9 @@
 The frontend requires these environment variables:
 
 - `NEXT_PUBLIC_API_URL`: The URL of your deployed backend API
-  - Example: `https://your-backend-app-production.up.railway.app`
+  - Example: `https://sz453781it-hackathon-todo.hf.space`
   - For local development: `http://localhost:8000`
+  - For production: `https://sz453781it-hackathon-todo.hf.space`
 
 ## Configuration Notes
 
