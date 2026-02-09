@@ -48,10 +48,14 @@ const TasksPage = () => {
 
   const handleToggleTask = async (id: string) => {
     try {
-      const updatedTask = await taskService.toggleTaskCompletion(id);
-      setTasks(tasks.map(task =>
-        task.id === id ? updatedTask : task
-      ));
+      const currentTask = tasks.find(task => task.id === id);
+      if (currentTask) {
+        const updatedTask = await taskService.toggleTaskCompletion(id);
+
+        setTasks(tasks.map(task =>
+          task.id === id ? updatedTask : task
+        ));
+      }
     } catch (error) {
       console.error('Error toggling task:', error);
       alert('Failed to update task');

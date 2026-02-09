@@ -68,7 +68,7 @@ def update_task(
     return task
 
 
-@router.delete("/{task_id}")
+@router.delete("/{task_id}/")
 def delete_task(
     task_id: UUID,
     current_user_id: UUID = Depends(auth_middleware.get_current_user_id),
@@ -85,7 +85,7 @@ def delete_task(
     return {"message": "Task deleted successfully"}
 
 
-@router.patch("/{task_id}/complete", response_model=TaskRead)
+@router.patch("/{task_id}/complete/", response_model=TaskRead)
 def mark_task_complete(
     task_id: UUID,
     current_user_id: UUID = Depends(auth_middleware.get_current_user_id),
@@ -102,7 +102,7 @@ def mark_task_complete(
     return task
 
 
-@router.patch("/{task_id}/incomplete", response_model=TaskRead)
+@router.patch("/{task_id}/incomplete/", response_model=TaskRead)
 def mark_task_incomplete(
     task_id: UUID,
     current_user_id: UUID = Depends(auth_middleware.get_current_user_id),

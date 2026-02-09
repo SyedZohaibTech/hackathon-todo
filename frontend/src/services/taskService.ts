@@ -1,18 +1,23 @@
 import { Task } from '../types/task';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+// ✅ Base URL ko safe bana diya (no trailing slash issue)
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, '') ||
+  'https://sz453781it-hackathon-todo.hf.space';
 
 class TaskService {
   private getAuthHeaders(): HeadersInit {
     const token = localStorage.getItem('access_token');
+
     return {
       'Content-Type': 'application/json',
-      ...(token && { Authorization: `Bearer ${token}` }),
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
     };
   }
 
+  // ✅ trailing slash added
   async getTasks(): Promise<Task[]> {
-    const response = await fetch(`${API_BASE_URL}/api/v1/tasks`, {
+    const response = await fetch(`${API_BASE_URL}/api/v1/tasks/`, {
       headers: this.getAuthHeaders(),
     });
 
@@ -23,11 +28,16 @@ class TaskService {
     return response.json();
   }
 
+  // ✅ trailing slash added
   async createTask(title: string, description?: string): Promise<Task> {
-    const response = await fetch(`${API_BASE_URL}/api/v1/tasks`, {
+    const response = await fetch(`${API_BASE_URL}/api/v1/tasks/`, {
       method: 'POST',
       headers: this.getAuthHeaders(),
-      body: JSON.stringify({ title, description, completed: false }),
+      body: JSON.stringify({
+        title,
+        description,
+        completed: false,
+      }),
     });
 
     if (!response.ok) {
@@ -37,8 +47,9 @@ class TaskService {
     return response.json();
   }
 
+  // ✅ id ke baad slash (FastAPI requirement)
   async updateTask(id: string, updates: Partial<Task>): Promise<Task> {
-    const response = await fetch(`${API_BASE_URL}/api/v1/tasks/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/api/v1/tasks/${id}/`, {
       method: 'PUT',
       headers: this.getAuthHeaders(),
       body: JSON.stringify(updates),
@@ -51,8 +62,9 @@ class TaskService {
     return response.json();
   }
 
+  // ✅ id ke baad slash
   async deleteTask(id: string): Promise<void> {
-    const response = await fetch(`${API_BASE_URL}/api/v1/tasks/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/api/v1/tasks/${id}/`, {
       method: 'DELETE',
       headers: this.getAuthHeaders(),
     });
@@ -62,11 +74,15 @@ class TaskService {
     }
   }
 
+  // ✅ complete endpoint with trailing slash
   async toggleTaskCompletion(id: string): Promise<Task> {
-    const response = await fetch(`${API_BASE_URL}/api/v1/tasks/${id}/complete`, {
-      method: 'PATCH',
-      headers: this.getAuthHeaders(),
-    });
+    const response = await fetch(
+      `${API_BASE_URL}/api/v1/tasks/${id}/complete/`,
+      {
+        method: 'PATCH',
+        headers: this.getAuthHeaders(),
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`Failed to toggle task completion: ${response.statusText}`);
